@@ -9,22 +9,22 @@
 
 ## Features
 
-* Custom colors
-* Custom size and border radius
-* Light-weight: No other dependencies besides `react-native`
+- Custom colors
+- Custom size and border radius
+- Light-weight: No other dependencies besides `react-native`
 
 ## Installation
 
-`yarn add react-native-progress-circle`
+`yarn add react-native-progress-circle-rtl`
 
 or
 
-`npm install --save react-native-progress-circle`
+`npm install --save react-native-progress-circle-rtl`
 
 ## Usage
 
 ```javascript
-import ProgressCircle from 'react-native-progress-circle'
+import ProgressCircle from 'react-native-progress-circle-rtl'
 
 render() {
     return (
@@ -43,17 +43,18 @@ render() {
 ```
 
 ## Props
-| Name | Description | Type | Required | Default Value |
-| :--- | :----- | :--- | :---: | :---: |
-| percent | The percentage used for displaying the progress | Number | ✓ |  |
-| radius | The radius in `px` of the component (including border) | Number | ✓ |  |
-| borderWidth | The border width in `px` | Number | ✓ |  |
-| color | The border color | String |  | ![#f00](https://placehold.it/15/f00/000000?text=+) `'#f00'` |
-| shadowColor | The background color of the border | String |  | ![#999](https://placehold.it/15/999/000000?text=+) `'#999'` |
-| bgColor | The inner background color of the component  | String |  | ![#e9e9ef](https://placehold.it/15/e9e9ef/000000?text=+) `'#e9e9ef'` |
-| children | The children to render inside this component | Node |  | `null` |
-| containerStyle | The custom styling which will be applied to the container of the `children` | Style |  | `null` |
-| outerCircleStyle | The custom styling which will be applied to the outer circle | Style |  | `null` |
+
+| Name             | Description                                                                 | Type   | Required |                            Default Value                             |
+| :--------------- | :-------------------------------------------------------------------------- | :----- | :------: | :------------------------------------------------------------------: |
+| percent          | The percentage used for displaying the progress                             | Number |    ✓     |                                                                      |
+| radius           | The radius in `px` of the component (including border)                      | Number |    ✓     |                                                                      |
+| borderWidth      | The border width in `px`                                                    | Number |    ✓     |                                                                      |
+| color            | The border color                                                            | String |          |     ![#f00](https://placehold.it/15/f00/000000?text=+) `'#f00'`      |
+| shadowColor      | The background color of the border                                          | String |          |     ![#999](https://placehold.it/15/999/000000?text=+) `'#999'`      |
+| bgColor          | The inner background color of the component                                 | String |          | ![#e9e9ef](https://placehold.it/15/e9e9ef/000000?text=+) `'#e9e9ef'` |
+| children         | The children to render inside this component                                | Node   |          |                                `null`                                |
+| containerStyle   | The custom styling which will be applied to the container of the `children` | Style  |          |                                `null`                                |
+| outerCircleStyle | The custom styling which will be applied to the outer circle                | Style  |          |                                `null`                                |
 
 ## Author
 

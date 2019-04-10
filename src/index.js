@@ -1,38 +1,36 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { StyleSheet, View, ViewPropTypes,I18nManager } from 'react-native'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, View, ViewPropTypes, I18nManager } from "react-native";
 
 // compatability for react-native versions < 0.44
-const ViewPropTypesStyle = ViewPropTypes
-  ? ViewPropTypes.style
-  : View.propTypes.style
-let direction = I18nManager.isRTL? 'right' : 'left';
+const ViewPropTypesStyle = ViewPropTypes ? ViewPropTypes.style : View.propTypes.style;
+let direction = I18nManager.isRTL ? "right" : "left";
 const styles = StyleSheet.create({
   outerCircle: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   innerCircle: {
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center"
   },
   leftWrap: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    [`${direction}`]: 0,
+    left: 0
   },
   halfCircle: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    left: 0,
+    [`${direction}`]: 0,
     borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-})
+    borderBottomRightRadius: 0
+  }
+});
 
 function percentToDegrees(percent) {
-  return percent * 3.6
+  return percent * 3.6;
 }
 
 export default class PercentageCircle extends Component {
@@ -49,35 +47,35 @@ export default class PercentageCircle extends Component {
   };
 
   static defaultProps = {
-    color: '#f00',
-    shadowColor: '#999',
-    bgColor: '#e9e9ef',
+    color: "#f00",
+    shadowColor: "#999",
+    bgColor: "#e9e9ef",
     borderWidth: 2,
     children: null,
-    containerStyle: null,
+    containerStyle: null
   };
 
   constructor(props) {
-    super(props)
-    this.state = this.getInitialStateFromProps(props)
+    super(props);
+    this.state = this.getInitialStateFromProps(props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.getInitialStateFromProps(nextProps))
+    this.setState(this.getInitialStateFromProps(nextProps));
   }
 
   getInitialStateFromProps(props) {
-    const percent = Math.max(Math.min(100, props.percent), 0)
-    const needHalfCircle2 = percent > 50
-    let halfCircle1Degree
-    let halfCircle2Degree
+    const percent = Math.max(Math.min(100, props.percent), 0);
+    const needHalfCircle2 = percent > 50;
+    let halfCircle1Degree;
+    let halfCircle2Degree;
     // degrees indicate the 'end' of the half circle, i.e. they span (degree - 180, degree)
     if (needHalfCircle2) {
-      halfCircle1Degree = 180
-      halfCircle2Degree = percentToDegrees(percent)
+      halfCircle1Degree = 180;
+      halfCircle2Degree = percentToDegrees(percent);
     } else {
-      halfCircle1Degree = percentToDegrees(percent)
-      halfCircle2Degree = 0
+      halfCircle1Degree = percentToDegrees(percent);
+      halfCircle2Degree = 0;
     }
 
     return {
@@ -86,24 +84,22 @@ export default class PercentageCircle extends Component {
       halfCircle2Styles: {
         // when the second half circle is not needed, we need it to cover
         // the negative degrees of the first circle
-        backgroundColor: needHalfCircle2
-          ? props.color
-          : props.shadowColor,
-      },
-    }
+        backgroundColor: needHalfCircle2 ? props.color : props.shadowColor
+      }
+    };
   }
 
   renderHalfCircle(rotateDegrees, halfCircleStyles) {
-    const { radius, color } = this.props
-    const key = I18nManager.isRTL ? 'right' : 'left';
+    const { radius, color } = this.props;
+    const key = I18nManager.isRTL ? "right" : "left";
     return (
       <View
         style={[
           styles.leftWrap,
           {
             width: radius,
-            height: radius * 2,
-          },
+            height: radius * 2
+          }
         ]}
       >
         <View
@@ -113,23 +109,23 @@ export default class PercentageCircle extends Component {
               width: radius,
               height: radius * 2,
               borderRadius: radius,
-              overflow: 'hidden',
+              overflow: "hidden",
               transform: [
-                { translateX: radius / 2 },
+                { translateX: I18nManager.isRTL ? -radius / 2 : radius / 2 },
                 { rotate: `${rotateDegrees}deg` },
-                { translateX: -radius / 2 },
+                { translateX: I18nManager.isRTL ? radius / 2 : -radius / 2 }
               ],
               backgroundColor: color,
-              ...halfCircleStyles,
-            },
+              ...halfCircleStyles
+            }
           ]}
         />
       </View>
-    )
+    );
   }
 
   renderInnerCircle() {
-    const radiusMinusBorder = this.props.radius - this.props.borderWidth
+    const radiusMinusBorder = this.props.radius - this.props.borderWidth;
     return (
       <View
         style={[
@@ -139,21 +135,17 @@ export default class PercentageCircle extends Component {
             height: radiusMinusBorder * 2,
             borderRadius: radiusMinusBorder,
             backgroundColor: this.props.bgColor,
-            ...this.props.containerStyle,
-          },
+            ...this.props.containerStyle
+          }
         ]}
       >
         {this.props.children}
       </View>
-    )
+    );
   }
 
   render() {
-    const {
-      halfCircle1Degree,
-      halfCircle2Degree,
-      halfCircle2Styles,
-    } = this.state
+    const { halfCircle1Degree, halfCircle2Degree, halfCircle2Styles } = this.state;
     return (
       <View
         style={[
@@ -163,14 +155,14 @@ export default class PercentageCircle extends Component {
             height: this.props.radius * 2,
             borderRadius: this.props.radius,
             backgroundColor: this.props.shadowColor,
-            ...this.props.outerCircleStyle,
-          },
+            ...this.props.outerCircleStyle
+          }
         ]}
       >
         {this.renderHalfCircle(halfCircle1Degree)}
         {this.renderHalfCircle(halfCircle2Degree, halfCircle2Styles)}
         {this.renderInnerCircle()}
       </View>
-    )
+    );
   }
 }
